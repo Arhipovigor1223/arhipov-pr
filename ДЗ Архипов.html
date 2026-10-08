@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Анкета</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px 14px; background: #f0f2f5; color: #1c1e21; font-family: Arial, sans-serif; }
+    .wrap { max-width: 430px; margin: 0 auto; }
+    h1 { color: #1877f2; text-align: center; font-size: 42px; margin: 8px 0 22px; }
+    .card { background: white; border-radius: 10px; padding: 22px; box-shadow: 0 2px 8px #00000018; margin-bottom: 22px; }
+    h2 { margin: 0 0 8px; font-size: 24px; }
+    .sub { color: #606770; margin: 0 0 18px; }
+    label { display: block; margin: 12px 0 5px; font-size: 14px; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="tel"], input[type="date"], select {
+      width: 100%; padding: 11px; border: 1px solid #ccd0d5; border-radius: 6px; font-size: 15px; background: white;
+    }
+    .check { display: block; margin: 10px 0; }
+    .check input { margin-right: 8px; }
+    button { border: 0; border-radius: 6px; padding: 11px 16px; cursor: pointer; font-size: 15px; font-weight: bold; }
+    .blue { color: white; background: #1877f2; }
+    .green { color: white; background: #42b72a; width: 100%; margin-top: 16px; }
+    .gray { background: #e4e6eb; color: #1c1e21; }
+    .result { display: inline-block; width: 110px !important; margin-right: 8px; }
+    .note { color: #606770; font-size: 12px; line-height: 1.4; margin-top: 15px; }
+    .row { display: flex; gap: 8px; }
+    .row > * { flex: 1; min-width: 0; }
+    .gender { display: flex; flex-wrap: wrap; gap: 12px; }
+    .gender label { border: 1px solid #ccd0d5; border-radius: 6px; padding: 10px; margin: 0; flex: 1; }
+    .status { margin-top: 12px; font-size: 14px; }
+  </style>
+  <script>
+    function grant() {
+      const form = document.forms.form1;
+      let total = 0;
+      form.querySelectorAll('input[name="lan"]:checked').forEach(function (item) {
+        total += Number(item.value);
+      });
+      form.output1.value = total;
+    }
+    function registerUser(event) {
+      event.preventDefault();
+      document.getElementById('regStatus').textContent =
+        'Форму заповнено. Це навчальний приклад — дані нікуди не надсилаються.';
+    }
+  </script>
+</head>
+<body>
+  <main class="wrap">
+    <h1>facebook</h1>
+
+    <section class="card">
+      <h2>Анкета для перекладачів</h2>
+      <p class="sub">Вкажіть мови, якими ви володієте досконало:</p>
+      <form name="form1" onsubmit="return false;">
+        <label class="check"><input type="checkbox" name="lan" value="1000"> Українська — 1000 балів</label>
+        <label class="check"><input type="checkbox" name="lan" value="200"> Англійська — 200 балів</label>
+        <label class="check"><input type="checkbox" name="lan" value="300"> Французька — 300 балів</label>
+        <label class="check"><input type="checkbox" name="lan" value="400"> Німецька — 400 балів</label>
+        <label class="check"><input type="checkbox" name="lan" value="500"> Китайська — 500 балів</label>
+        <label class="check"><input type="checkbox" name="lan" value="600"> Японська — 600 балів</label>
+        <label class="check"><input type="checkbox" name="lan" value="600"> Польська — 600 балів</label>
+        <label for="output1">Загальна винагорода (бали)</label>
+        <input class="result" type="text" name="output1" id="output1" readonly>
+        <button class="blue" type="button" onclick="grant()">Винагорода</button>
+        <button class="gray" type="reset">Відмінити</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Створити новий обліковий запис</h2>
+      <p class="sub">Це безкоштовно і так буде завжди.</p>
+      <form onsubmit="registerUser(event)">
+        <div class="row">
+          <input type="text" name="firstName" placeholder="Ім’я" aria-label="Ім’я" required>
+          <input type="text" name="lastName" placeholder="Прізвище" aria-label="Прізвище" required>
+        </div>
+        <label for="contact">Номер мобільного телефону або ел. пошта</label>
+        <input id="contact" type="text" name="contact" placeholder="Номер телефону або електронна пошта" required>
+        <label for="password">Новий пароль</label>
+        <input id="password" type="password" name="password" placeholder="Новий пароль" required minlength="6">
+        <label for="birthday">День народження</label>
+        <input id="birthday" type="date" name="birthday" required>
+        <label>Стать</label>
+        <div class="gender">
+          <label><input type="radio" name="gender" value="жінка" required> Жінка</label>
+          <label><input type="radio" name="gender" value="чоловік"> Чоловік</label>
+          <label><input type="radio" name="gender" value="інше"> Інше</label>
+        </div>
+        <p class="note">Натискаючи «Зареєструватися», ви погоджуєтеся з умовами використання, політикою даних і політикою файлів cookie. Це навчальна форма, яка не пов’язана з Facebook і не надсилає введені дані.</p>
+        <button class="green" type="submit">Зареєструватися</button>
+        <div class="status" id="regStatus" role="status"></div>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
